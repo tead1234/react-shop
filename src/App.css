@@ -6,6 +6,12 @@
   height: 40vmin;
   pointer-events: none;
 }
+.MainBg{
+  height: 100px;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
