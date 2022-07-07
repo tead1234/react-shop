@@ -10,14 +10,25 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useState } from 'react';
 import data from './data'
+import{Routes, Route, Link} from 'react-router-dom'
 function App() {
   let[watch, setwatch] = useState(data)
   return (
+    <>
     <div className="App">
         <ColorSchemesExample/>
         <MainBg></MainBg>
         <ResponsiveAutoExample watch = {watch}></ResponsiveAutoExample>
     </div>
+    {/* 각 버튼별 페이지생성 */}
+    <Routes>
+      <Route path='/'></Route>  
+      <Route path='/price'></Route>  
+      <Route path = '/features' element={FeaturesPage}></Route>  
+    </Routes> 
+    <Link to="/features">버튼</Link>   
+    </>
+    
   );
 }
 function MainBg(){
@@ -27,6 +38,15 @@ function MainBg(){
     </>
   )
 }
+function FeaturesPage(){
+  return(
+    <>
+      <p>hi</p>
+      <MainBg></MainBg>
+    </>
+  )
+}
+
 function ColorSchemesExample() {
   return (
     <>
@@ -34,9 +54,9 @@ function ColorSchemesExample() {
         <Container>
           <Navbar.Brand href="#home">BrandLoge</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
+            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/features" >Features</Nav.Link>
+            <Nav.Link href="/pricing">Pricing</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
@@ -47,17 +67,18 @@ function ResponsiveAutoExample(props) {
   return (
     <Container>
       <Row>
-        <Col sm>
-          <p>{props.watch[0].title}</p>
-          <p>{props.watch[0].content}</p>
-          <p>{props.watch[0].price}</p>
+        {/* map에선 ()만 쓰임 */}
+        {
+          props.watch.map((a, i)=>(
+          <Col sm>
+          <p>{a.title}</p>
+          <p>{a.content}</p>
+          <p>{a.price}</p>
           <img src={logo}></img>
-        </Col>
-        <Col sm>상품2</Col>
-        <Col sm>
-          <p>상품3</p>
-          <img src={logo}></img>
-        </Col>
+          </Col>
+          ))
+        }
+        
       </Row>
     </Container>
   );
