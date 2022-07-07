@@ -8,12 +8,15 @@ import watchimg from './img/rolex.jfif'
 import logo from './img/logo512.png'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { useState } from 'react';
+import data from './data'
 function App() {
+  let[watch, setwatch] = useState(data)
   return (
     <div className="App">
         <ColorSchemesExample/>
         <MainBg></MainBg>
-        <ResponsiveAutoExample></ResponsiveAutoExample>
+        <ResponsiveAutoExample watch = {watch}></ResponsiveAutoExample>
     </div>
   );
 }
@@ -40,12 +43,14 @@ function ColorSchemesExample() {
     </>
   );
 }
-function ResponsiveAutoExample() {
+function ResponsiveAutoExample(props) {
   return (
     <Container>
       <Row>
         <Col sm>
-          <p>상품1</p>
+          <p>{props.watch[0].title}</p>
+          <p>{props.watch[0].content}</p>
+          <p>{props.watch[0].price}</p>
           <img src={logo}></img>
         </Col>
         <Col sm>상품2</Col>
