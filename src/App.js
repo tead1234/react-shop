@@ -13,20 +13,21 @@ import data from './data'
 import{Routes, Route, Link} from 'react-router-dom'
 function App() {
   let[watch, setwatch] = useState(data)
+  let [imgSrc] = useState(['/datejust.png','/submariner.png','/moonwatch.png'])
   return (
     <>
+    {/* <Link to="/features">버튼</Link>    */}
     <div className="App">
         <ColorSchemesExample/>
         <MainBg></MainBg>
-        <ResponsiveAutoExample watch = {watch}></ResponsiveAutoExample>
+        <ResponsiveAutoExample watch = {watch} imgSrc = {imgSrc}></ResponsiveAutoExample>
     </div>
     {/* 각 버튼별 페이지생성 */}
     <Routes>
       <Route path='/'></Route>  
       <Route path='/price'></Route>  
-      <Route path = '/features' element={FeaturesPage}></Route>  
+      <Route path = '/features' element={<FeaturesPage></FeaturesPage>}/>  
     </Routes> 
-    <Link to="/features">버튼</Link>   
     </>
     
   );
@@ -34,15 +35,25 @@ function App() {
 function MainBg(){
   return(
     <>
-        <img src={watchimg} style={{width: "100%",height: "300px", width: "100%", backgroundSize: "cover", backgroundPosition: "center" } }></img>
+        <img src={process.env.PUBLIC_URL+'/main.png'} style={{width: "100%",height: "300px", width: "100%", backgroundSize: "cover", backgroundPosition: "center" } }></img>
     </>
   )
 }
 function FeaturesPage(){
+  let [imgSrc] = useState(['/datejust.png','/submariner.png','/moonwatch.png'])
   return(
     <>
-      <p>hi</p>
-      <MainBg></MainBg>
+      <img src={process.env.PUBLIC_URL+imgSrc[0]}></img>
+      <h2>롤렉스의 아름다움</h2>
+      <h3>DateJust</h3>
+      <br></br>
+      <img src={process.env.PUBLIC_URL+imgSrc[1]}></img>
+      <h2>롤렉스의 시작과 끝</h2>
+      <h3>SubMariner</h3>
+      <br></br>
+      <img src={process.env.PUBLIC_URL+imgSrc[2]}></img>
+      <h2>오메가의 역작</h2>
+      <h3>MoonWatch</h3>
     </>
   )
 }
@@ -64,6 +75,7 @@ function ColorSchemesExample() {
   );
 }
 function ResponsiveAutoExample(props) {
+  
   return (
     <Container>
       <Row>
@@ -71,10 +83,10 @@ function ResponsiveAutoExample(props) {
         {
           props.watch.map((a, i)=>(
           <Col sm>
+          <img src={process.env.PUBLIC_URL+props.imgSrc[i]} style={{width: '30%'}}></img>
           <p>{a.title}</p>
           <p>{a.content}</p>
           <p>{a.price}</p>
-          <img src={logo}></img>
           </Col>
           ))
         }
