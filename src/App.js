@@ -1,4 +1,5 @@
 import './App.css';
+import './FeaturesPage.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
@@ -35,7 +36,7 @@ function App() {
 function MainBg(){
   return(
     <>
-        <img src={process.env.PUBLIC_URL+'/main.png'} style={{width: "100%",height: "300px", width: "100%", backgroundSize: "cover", backgroundPosition: "center" } }></img>
+        <img src={process.env.PUBLIC_URL+'/rolex_main.png'} style={{width: "70%",height: "300px", backgroundSize: "cover", backgroundPosition: "center" } }></img>
     </>
   )
 }
@@ -43,17 +44,19 @@ function FeaturesPage(){
   let [imgSrc] = useState(['/datejust.png','/submariner.png','/moonwatch.png'])
   return(
     <>
+    <div className='features'>
       <img src={process.env.PUBLIC_URL+imgSrc[0]}></img>
-      <h2>롤렉스의 아름다움</h2>
-      <h3>DateJust</h3>
-      <br></br>
-      <img src={process.env.PUBLIC_URL+imgSrc[1]}></img>
-      <h2>롤렉스의 시작과 끝</h2>
-      <h3>SubMariner</h3>
-      <br></br>
-      <img src={process.env.PUBLIC_URL+imgSrc[2]}></img>
-      <h2>오메가의 역작</h2>
-      <h3>MoonWatch</h3>
+        <h2>롤렉스의 아름다움</h2>
+        <h3>DateJust</h3>
+        <br></br>
+        <img src={process.env.PUBLIC_URL+imgSrc[1]}></img>
+        <h2>롤렉스의 시작과 끝</h2>
+        <h3>SubMariner</h3>
+        <br></br>
+        <img src={process.env.PUBLIC_URL+imgSrc[2]}></img>
+        <h2>오메가의 역작</h2>
+        <h3>MoonWatch</h3>
+    </div>
     </>
   )
 }
