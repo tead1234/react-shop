@@ -28,13 +28,13 @@ function App() {
                   </ResponsiveAutoExample></div>} />
       <Route path = '/features' element={<><ColorSchemesExample/><FeaturesPage></FeaturesPage></>}/> 
       {/* props전송은 js 파일을 넘어서도 가능 */}
-      <Route path='/pricing' element={<><ColorSchemesExample></ColorSchemesExample><Pricepage imgSrc= {imgSrc}></Pricepage></>}></Route> 
+      <Route path='/pricing' element={<><ColorSchemesExample></ColorSchemesExample><Pricepage imgSrc= {imgSrc}></Pricepage></>}> 
       {/* 라우트 안에 세부 경로를 만들수 있음 이때 /쓰지 않음 자동으로 생성   */}
       {/* 이떄 부모페이지를 컴포넌트화 시킨다음 아울렛을 써줘야함 */}
-        {/* <Route path="datejust" element={<>품절됐습니다.</>}></Route>
+        <Route path="datejust" element={<>품절됐습니다.</>}></Route>
         <Route path="submariner" element={<>품절됐습니다.</>}></Route>
-        <Route path="moonwatch" element={<>86000000원</>}></Route> */}
-      
+        <Route path="moonwatch" element={<>86000000원</>}></Route>
+      </Route>
       <Route path='*' element={<>없는 페이지 입니다.</>}></Route> 
     </Routes> 
     </>
