@@ -11,23 +11,32 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useState } from 'react';
 import data from './data'
-import{Routes, Route, Link} from 'react-router-dom'
+import pricepage from './pricepage'
+import{Routes, Route, Link, Outlet, useNavigate} from 'react-router-dom'
 function App() {
   let[watch, setwatch] = useState(data)
   let [imgSrc] = useState(['/datejust.png','/submariner.png','/moonwatch.png'])
   return (
     <>
     {/* <Link to="/features">버튼</Link>    */}
-    <div className="App">
-        <ColorSchemesExample/>
-        <MainBg></MainBg>
-        <ResponsiveAutoExample watch = {watch} imgSrc = {imgSrc}></ResponsiveAutoExample>
-    </div>
+    
     {/* 각 버튼별 페이지생성 */}
     <Routes>
-      <Route path='/'></Route>  
-      <Route path='/price'></Route>  
-      <Route path = '/features' element={<FeaturesPage></FeaturesPage>}/>  
+      <Route path = '/features' element={<><ColorSchemesExample/><FeaturesPage></FeaturesPage></>}/>  
+      <Route path='/' element={<div className="App">
+                  <ColorSchemesExample/>
+                  <MainBg></MainBg>
+                  <ResponsiveAutoExample watch = {watch} imgSrc = {imgSrc}>
+                  </ResponsiveAutoExample></div>}>
+      </Route>  
+      <Route path='/pricing' element={<pricepage></pricepage> }>
+      {/* 라우트 안에 세부 경로를 만들수 있음 이때 /쓰지 않음 자동으로 생성   */}
+      {/* 이떄 부모페이지를 컴포넌트화 시킨다음 아울렛을 써줘야함 */}
+        <Route path="datejust" element={<>품절됐습니다.</>}></Route>
+        <Route path="submariner" element={<>품절됐습니다.</>}></Route>
+        <Route path="moonwatch" element={<>86000000원</>}></Route>
+      </Route> 
+      <Route path='*' element={<>없는 페이지 입니다.</>}></Route> 
     </Routes> 
     </>
     
@@ -36,7 +45,7 @@ function App() {
 function MainBg(){
   return(
     <>
-        <img src={process.env.PUBLIC_URL+'/rolex_main.png'} style={{width: "70%",height: "300px", backgroundSize: "cover", backgroundPosition: "center" } }></img>
+        <img src={process.env.PUBLIC_URL+'/rolex_main.png'} style={{width: "100%",height: "300px", backgroundSize: "cover", backgroundPosition: "center", backgroundColor:'black' } }></img>
     </>
   )
 }
