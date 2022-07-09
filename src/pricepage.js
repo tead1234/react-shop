@@ -1,16 +1,20 @@
-import ColorSchemesExample from './App'
-function pricepage(props){
+import './pricepage.css'
+function Pricepage(props){
     return(
         <>
-            <ColorSchemesExample></ColorSchemesExample>
+            <div className='pricepage-price'>
             {
-                props.imgSrc.map((a) =>(
-                    <img src={process.env.PUBLIC_URL+a}></img>
-                    )
-                )
+                props.imgSrc.map((a,i)=>(
+                    <img src={process.env.PUBLIC_URL+ a} style={{width:'400px', padding:'10px', paddingTop: "40px", display:'inline'}}></img> 
+                ))
             }
+                <aside style={{}}>
+                    <h1>품절됐습니다.</h1>
+                </aside>
+            </div>
+            
         </>
-
+        
     );
 }
-export default pricepage;
+export default Pricepage;
