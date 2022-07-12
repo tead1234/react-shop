@@ -15,7 +15,6 @@ import Pricepage from './Pricepage.js'
 import{Routes, Route, Link, Outlet, useNavigate} from 'react-router-dom'
 function App() {
   let[watch, setwatch] = useState(data)
-  let [imgSrc] = useState(['/datejust.png','/submariner.png','/moonwatch.png'])
   return (
     <>
     {/* <Link to="/features">버튼</Link>    */}
@@ -24,16 +23,14 @@ function App() {
       <Route path='/' element={<div className="App">
                   <ColorSchemesExample/>
                   <MainBg></MainBg>
-                  <ResponsiveAutoExample watch = {watch} imgSrc = {imgSrc}>
+                  <ResponsiveAutoExample watch = {watch}>
                   </ResponsiveAutoExample></div>} />
-      <Route path = '/features' element={<><ColorSchemesExample/><FeaturesPage></FeaturesPage></>}/> 
+      <Route path = '/features' element={<><ColorSchemesExample/><FeaturesPage watch={watch}></FeaturesPage></>}/> 
       {/* props전송은 js 파일을 넘어서도 가능 */}
-      <Route path='/pricing' element={<><ColorSchemesExample></ColorSchemesExample><Pricepage imgSrc= {imgSrc}></Pricepage></>}> 
+      <Route path='/pricing' element={<><ColorSchemesExample></ColorSchemesExample><Pricepage watch={watch}></Pricepage></>}> 
       {/* 라우트 안에 세부 경로를 만들수 있음 이때 /쓰지 않음 자동으로 생성   */}
       {/* 이떄 부모페이지를 컴포넌트화 시킨다음 아울렛을 써줘야함 */}
-        <Route path="datejust" element={<>품절됐습니다.</>}></Route>
-        <Route path="submariner" element={<>품절됐습니다.</>}></Route>
-        <Route path="moonwatch" element={<>86000000원</>}></Route>
+        <Route path="/pricing/:id" element={<>150000000(vat별도).</>}></Route>
       </Route>
       <Route path='*' element={<>없는 페이지 입니다.</>}></Route> 
     </Routes> 
@@ -50,23 +47,19 @@ function MainBg(){
 }
 
 
-function FeaturesPage(){
-  let [imgSrc] = useState(['/datejust.png','/submariner.png','/moonwatch.png'])
+function FeaturesPage(props){
   return(
     <>
-    <div className='features'>
-      <img src={process.env.PUBLIC_URL+imgSrc[0]}></img>
-        <h2>롤렉스의 아름다움</h2>
-        <h3>DateJust</h3>
+    {
+      props.watch.map((a,i) => (
+        <div className='features'>
+        <img src={process.env.PUBLIC_URL+a.id+'.png'}></img>
+        <h2>{a.feature}</h2>
+        <h3>{a.title}</h3>
         <br></br>
-        <img src={process.env.PUBLIC_URL+imgSrc[1]}></img>
-        <h2>롤렉스의 시작과 끝</h2>
-        <h3>SubMariner</h3>
-        <br></br>
-        <img src={process.env.PUBLIC_URL+imgSrc[2]}></img>
-        <h2>오메가의 역작</h2>
-        <h3>MoonWatch</h3>
-    </div>
+        </div>
+      ))
+  }
     </>
   )
 }
@@ -95,7 +88,7 @@ function ResponsiveAutoExample(props) {
         {
           props.watch.map((a, i)=>(
           <Col sm>
-          <img src={process.env.PUBLIC_URL+props.imgSrc[i]} style={{width: '30%'}}></img>
+          <img src={process.env.PUBLIC_URL+a.id+'.png'} style={{width: '30%'}}></img>
           <p>{a.title}</p>
           <p>{a.content}</p>
           <p>{a.price}</p>

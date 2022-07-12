@@ -1,4 +1,13 @@
-.pricepage-price{
-    display:grid;
-    place-content: left;
+
+#imgbox{
+    display: inline;
+    position: relative;
+    left: 50px;
+}
+.pricepage-info{
+    display: grid;
+    place-content: center;
+    float: right;
+    margin-right: 300px;
+    margin-top: 350px;
 }
