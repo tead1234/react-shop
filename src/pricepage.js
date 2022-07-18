@@ -1,6 +1,8 @@
+import { useEffect, useState } from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import './pricepage.css'
 function Pricepage(props){
+    let [alert, setalert] = useState(true);
     const nav = useNavigate();
 
     const changeData = () => {
@@ -8,10 +10,28 @@ function Pricepage(props){
         copy.sort()
         props.watch.setwatch(copy)
     }
+    let timer = ()=>{ setTimeout(()=>{
+        setalert(false)
+    }, 2000)
 
-
+    }
+    // 컴포넌트의 주기 중 mount, update시 실행
+    // html랜더링 이후 useEffect가 이어서 작동됨
+    // 시간이 걸리는 연산, 데이터 가져오기 타이머
+    useEffect(()=>{
+        timer()
+    })
+   
     return(
         <>
+        {
+            alert == true?
+        <header className='container'>
+            <div className='alert alert-warning'>
+                2초이내 구매시 할인
+            </div>
+        </header> : null
+        }
             <button onClick={changeData}>가격별 정렬</button>
             {
                     props.watch.map((a,i)=>(
