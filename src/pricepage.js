@@ -3,8 +3,13 @@ import { Link, Outlet, useNavigate } from 'react-router-dom';
 import './pricepage.css'
 function Pricepage(props){
     let [alert, setalert] = useState(true);
+    let [inputAlert, setinputAlert] = useState(false);
+    let [inputValue, setinputValue] = useState('')
+    const inputalert = (event)=>{
+        setinputValue(event.target.value);
+        console.log(event.target.value)
+    }
     const nav = useNavigate();
-
     const changeData = () => {
         let copy = [...props.watch]
         copy.sort()
@@ -30,6 +35,11 @@ function Pricepage(props){
             clearTimeout(timer);
         }
     },[])
+    // 일종의 스위치로 만들어야됨
+    useEffect(()=>{
+       isNaN(inputValue)? setinputAlert(true) : setinputAlert(false)
+       console.log(inputAlert)
+    }, [inputValue])
     // return clean up 함수 == > 재랜더링이 계속되니깐 기존 코드 정리용 함수
     
     return(
@@ -42,6 +52,15 @@ function Pricepage(props){
             </div>
         </header> : null
         }
+        {
+            inputAlert == true?
+            <header className='container'>
+                <div className='alert alert-warning'>
+                    이상한거 넣지 말것
+                </div>
+            </header> : null
+         }
+         <input onChange ={inputalert}></input>
             <button onClick={changeData}>가격별 정렬</button>
             {
                     props.watch.map((a,i)=>(
