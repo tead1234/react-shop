@@ -1,5 +1,4 @@
 import './App.css';
-import './FeaturesPage.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
@@ -11,8 +10,10 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useState } from 'react';
 import data from './data'
-import Pricepage from './Pricepage.js'
+import Pricepage from './pricepage.js'
+import FeaturesPage from './featurespage.js'
 import{Routes, Route, Link, Outlet, useNavigate} from 'react-router-dom'
+import axios from 'axios'
 function App() {
   let[watch, setwatch] = useState(data)
   return (
@@ -23,11 +24,11 @@ function App() {
       <Route path='/' element={<div className="App">
                   <ColorSchemesExample/>
                   <MainBg></MainBg>
-                  <ResponsiveAutoExample watch = {watch}>
+                  <ResponsiveAutoExample watch = {watch} setwatch={setwatch}>
                   </ResponsiveAutoExample></div>} />
       <Route path = '/features' element={<><ColorSchemesExample/><FeaturesPage watch={watch}></FeaturesPage></>}/> 
       {/* props전송은 js 파일을 넘어서도 가능 */}
-      <Route path='/pricing' element={<><ColorSchemesExample></ColorSchemesExample><Pricepage watch={watch}></Pricepage></>}> 
+      <Route path='/pricing' element={<><ColorSchemesExample></ColorSchemesExample><Pricepage watch={watch} ></Pricepage></>}> 
       {/* 라우트 안에 세부 경로를 만들수 있음 이때 /쓰지 않음 자동으로 생성   */}
       {/* 이떄 부모페이지를 컴포넌트화 시킨다음 아울렛을 써줘야함 */}
         <Route path="/pricing/:id" element={<>150000000(vat별도).</>}></Route>
@@ -42,24 +43,6 @@ function MainBg(){
   return(
     <>
         <img src={process.env.PUBLIC_URL+'/rolex_main.png'} style={{width: "100%",height: "300px", backgroundSize: "cover", backgroundPosition: "center", backgroundColor:'black' } }></img>
-    </>
-  )
-}
-
-
-function FeaturesPage(props){
-  return(
-    <>
-    {
-      props.watch.map((a,i) => (
-        <div className='features'>
-        <img src={process.env.PUBLIC_URL+a.id+'.png'}></img>
-        <h2>{a.feature}</h2>
-        <h3>{a.title}</h3>
-        <br></br>
-        </div>
-      ))
-  }
     </>
   )
 }
@@ -95,6 +78,17 @@ function ResponsiveAutoExample(props) {
           </Col>
           ))
         }
+        <Button onClick= {()=>{
+          axios.get('https://codingapple1.github.io/shop/data2.json').then((data)=>{
+            let copy = [...props.watch];
+            data.data.map((a)=>(
+                copy.push(a)  
+            ));
+            props.setwatch(copy)
+          }).catch(()=>{
+            console.log("에러")
+          })
+        }}>요청하기</Button>
         
       </Row>
     </Container>
