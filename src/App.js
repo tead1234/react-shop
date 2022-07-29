@@ -16,6 +16,10 @@ import{Routes, Route, Link, Outlet, useNavigate} from 'react-router-dom'
 import axios from 'axios'
 function App() {
   let[watch, setwatch] = useState(data)
+  let[cnt, setcnt] = useState(0);
+  let[url,seturl] = useState(['https://codingapple1.github.io/shop/data2.json','https://codingapple1.github.io/shop/data3.json'])
+  let[Swit, setSwit] = useState(false);
+  let[tap, settap] = useState(0);
   return (
     <>
     {/* <Link to="/features">버튼</Link>    */}
@@ -23,8 +27,10 @@ function App() {
     <Routes> 
       <Route path='/' element={<div className="App">
                   <ColorSchemesExample/>
-                  <MainBg></MainBg>
-                  <ResponsiveAutoExample watch = {watch} setwatch={setwatch}>
+                  <MainBg tab={tap} settap = {settap}></MainBg>
+                  <ResponsiveAutoExample watch = {watch} setwatch={setwatch}
+                  cnt = {cnt} setcnt={setcnt} url = {url} Swit = {Swit} setSwit ={setSwit}
+                  >
                   </ResponsiveAutoExample></div>} />
       <Route path = '/features' element={<><ColorSchemesExample/><FeaturesPage watch={watch}></FeaturesPage></>}/> 
       {/* props전송은 js 파일을 넘어서도 가능 */}
@@ -39,13 +45,43 @@ function App() {
     
   );
 }
-function MainBg(){
+function MainBg(props){
   return(
     <>
         <img src={process.env.PUBLIC_URL+'/rolex_main.png'} style={{width: "100%",height: "300px", backgroundSize: "cover", backgroundPosition: "center", backgroundColor:'black' } }></img>
+        <Nav variant="tabs"  defaultActiveKey="link0">
+          <Nav.Item>
+            <Nav.Link eventKey="link0" onClick={()=>{
+                props.settap(0)
+                changeTab(props.tab)
+                
+            }}>버튼0</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="link1" onClick={()=>{
+                props.settap(1)
+            }}><changeTab></changeTab>버튼1</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="link2"  onClick={()=>{
+                props.settap(2)
+                changeTab(props.tab)
+            }}>버튼2</Nav.Link>
+           </Nav.Item>
+        </Nav>
+           
     </>
   )
 }
+// 일반 조건문을 쓰고 싶다면 별도의 함수로 만들어서 사용
+function changeTab(props) {
+  if (tab == 0){
+    return <div>하이염</div>  
+  } else if (tab ==1){
+    return <div>바이염</div>
+  }else
+   return <div>내용2</div>
+ } 
 
 function ColorSchemesExample() {
   return (
@@ -68,8 +104,16 @@ function ResponsiveAutoExample(props) {
     <Container>
       <Row>
         {/* map에선 ()만 쓰임 */}
+        {/* 알림창 */}
         {
-          props.watch.map((a, i)=>(
+          props.Swit?
+          <div>
+            <h1> 로딩중입니다. </h1>
+          </div>:
+          null
+        }
+        {
+          props.watch.map((a)=>(
           <Col sm>
           <img src={process.env.PUBLIC_URL+a.id+'.png'} style={{width: '30%'}}></img>
           <p>{a.title}</p>
@@ -79,14 +123,24 @@ function ResponsiveAutoExample(props) {
           ))
         }
         <Button onClick= {()=>{
-          axios.get('https://codingapple1.github.io/shop/data2.json').then((data)=>{
+          props.setSwit(!props.Swit);
+          axios.get(props.url[props.cnt]).then((data)=>{
             let copy = [...props.watch];
             data.data.map((a)=>(
                 copy.push(a)  
             ));
             props.setwatch(copy)
+            // 더보기 알림및 추가
+            {
+              props.cnt <2?
+              props.setcnt(props.cnt + 1):
+              alert("더이상 보여줄 페이지가 없다.")
+            }
+            props.setSwit(!props.Swit);
           }).catch(()=>{
             console.log("에러")
+            alert("더이상 보여줄거 없음")
+
           })
         }}>요청하기</Button>
         
