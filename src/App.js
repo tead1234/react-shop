@@ -52,37 +52,41 @@ function MainBg(props){
         <Nav variant="tabs"  defaultActiveKey="link0">
           <Nav.Item>
             <Nav.Link eventKey="link0" onClick={()=>{
+              console.log("1번 누름");
+
                 props.settap(0)
-                changeTab(props.tab)
-                
             }}>버튼0</Nav.Link>
           </Nav.Item>
           <Nav.Item>
             <Nav.Link eventKey="link1" onClick={()=>{
-                props.settap(1)
-            }}><changeTab></changeTab>버튼1</Nav.Link>
+              props.settap(1);
+            }}>버튼1</Nav.Link>
           </Nav.Item>
           <Nav.Item>
             <Nav.Link eventKey="link2"  onClick={()=>{
                 props.settap(2)
-                changeTab(props.tab)
             }}>버튼2</Nav.Link>
            </Nav.Item>
         </Nav>
-           
+          <changeTab tap = {props.tap}></changeTab>
     </>
   )
 }
 // 일반 조건문을 쓰고 싶다면 별도의 함수로 만들어서 사용
 function changeTab(props) {
-  if (tab == 0){
-    return <div>하이염</div>  
-  } else if (tab ==1){
-    return <div>바이염</div>
-  }else
-   return <div>내용2</div>
- } 
+  if (props.tap == 0){
+    console.log("1번 누름");
+    return (<div>하이염</div>)  
+  } else if (props.tap ==1){
+    console.log("2번 누름");
 
+    return (<div>바이염</div>)
+  }else
+   return (<div>내용2</div>)
+ } 
+function Detail() {
+
+}
 function ColorSchemesExample() {
   return (
     <>
