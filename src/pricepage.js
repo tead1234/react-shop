@@ -13,6 +13,7 @@ function Pricepage(props){
     const changeData = () => {
         let copy = [...props.watch]
         copy.sort()
+        // props 변경 시도
         props.watch.setwatch(copy)
     }
     
