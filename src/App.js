@@ -84,9 +84,7 @@ function changeTab(props) {
   }else
    return (<div>내용2</div>)
  } 
-function Detail() {
 
-}
 function ColorSchemesExample() {
   return (
     <>
