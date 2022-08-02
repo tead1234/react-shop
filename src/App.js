@@ -8,9 +8,9 @@ import watchimg from './img/rolex.jfif'
 import logo from './img/logo512.png'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import data from './data'
-import Pricepage from './pricepage.js'
+import Pricepage from './Pricepage.js'
 import FeaturesPage from './featurespage.js'
 import{Routes, Route, Link, Outlet, useNavigate} from 'react-router-dom'
 import axios from 'axios'
@@ -27,7 +27,7 @@ function App() {
     <Routes> 
       <Route path='/' element={<div className="App">
                   <ColorSchemesExample/>
-                  <MainBg tab={tap} settap = {settap}></MainBg>
+                  <MainBg tap={tap} settap = {settap}></MainBg>
                   <ResponsiveAutoExample watch = {watch} setwatch={setwatch}
                   cnt = {cnt} setcnt={setcnt} url = {url} Swit = {Swit} setSwit ={setSwit}
                   >
@@ -52,8 +52,6 @@ function MainBg(props){
         <Nav variant="tabs"  defaultActiveKey="link0">
           <Nav.Item>
             <Nav.Link eventKey="link0" onClick={()=>{
-              console.log("1번 누름");
-
                 props.settap(0)
             }}>버튼0</Nav.Link>
           </Nav.Item>
@@ -68,22 +66,32 @@ function MainBg(props){
             }}>버튼2</Nav.Link>
            </Nav.Item>
         </Nav>
-          <changeTab tap = {props.tap}></changeTab>
+          <ChangeTab tap = {props.tap}></ChangeTab>
     </>
   )
 }
 // 일반 조건문을 쓰고 싶다면 별도의 함수로 만들어서 사용
-function changeTab(props) {
+// props로 전달된 애를 또 props로 전달이 된다??
+function ChangeTab(props) {
+  let[option, setOption] = useState('');
+  useEffect(()=>{
+    setTimeout(()=>{
+     setOption('end');
+    }, 100
+    )
+    // cleanup fun
+    return()=>{
+        setOption('');
+      }
+  },[props.tap])
   if (props.tap == 0){
-    console.log("1번 누름");
-    return (<div>하이염</div>)  
+    return (<div className={`start ${option}`}>하이염</div>)  
   } else if (props.tap ==1){
-    console.log("2번 누름");
-
-    return (<div>바이염</div>)
-  }else
-   return (<div>내용2</div>)
+    return (<div className={`start ${option}`}>바이염</div>)
+  }else{
+   return (<div className={`start ${option}`}>내용2</div>)
  } 
+}
 
 function ColorSchemesExample() {
   return (
