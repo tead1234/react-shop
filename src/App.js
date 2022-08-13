@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 import data from './data'
 import Pricepage from './Pricepage.js'
 import FeaturesPage from './featurespage.js'
+import CartPage from './cart.js';
 import{Routes, Route, Link, Outlet, useNavigate} from 'react-router-dom'
 import axios from 'axios'
 function App() {
@@ -33,6 +34,7 @@ function App() {
                   >
                   </ResponsiveAutoExample></div>} />
       <Route path = '/features' element={<><ColorSchemesExample/><FeaturesPage watch={watch}></FeaturesPage></>}/> 
+      <Route path = "/cart" element={<CartPage></CartPage>}></Route>
       {/* props전송은 js 파일을 넘어서도 가능 */}
       <Route path='/pricing' element={<><ColorSchemesExample></ColorSchemesExample><Pricepage watch={watch} ></Pricepage></>}> 
       {/* 라우트 안에 세부 경로를 만들수 있음 이때 /쓰지 않음 자동으로 생성   */}
