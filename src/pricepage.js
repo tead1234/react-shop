@@ -45,6 +45,7 @@ function Pricepage(props){
     }, [inputValue])
     // return clean up 함수 == > 재랜더링이 계속되니깐 기존 코드 정리용 함수
     useEffect(()=>{
+        if (localStorage.getItem("watched")==null)
         localStorage.setItem("watched", JSON.stringify([]));   
     })
     return(
@@ -81,10 +82,9 @@ function Pricepage(props){
                                 dispatch(addCart(a))
                                 let watched = localStorage.getItem('watched')
                                 localStorage.removeItem("watched")
-                                console.log(watched)
                                 let copy = JSON.parse(watched)
                                 copy.push(a.title);
-                                localStorage.setItem("watched2", JSON.stringify(copy))
+                                localStorage.setItem("watched", JSON.stringify(copy))
                             }}>
                                 장바구니 담기
                             </button>

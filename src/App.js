@@ -16,6 +16,7 @@ import CartPage from './cart.js';
 import{Routes, Route, Link, Outlet, useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import styled from 'styled-components';
+import RecentlyWatchedPanel from './RecentlyWatched';
 function App() {
   let[watch, setwatch] = useState(data)
   let[cnt, setcnt] = useState(0);
@@ -72,6 +73,7 @@ function MainBg(props){
            </Nav.Item>
         </Nav>
           <ChangeTab tap = {props.tap}></ChangeTab>
+        
     </>
   )
 }
@@ -115,6 +117,7 @@ function ColorSchemesExample() {
             <StyledLink to="/pricing">Pricing</StyledLink>
             <StyledLink to="/cart">Cart</StyledLink>
           </Nav>
+          <RecentlyWatchedPanel/>
         </Container>
       </Navbar>
     </>
