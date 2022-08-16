@@ -8,7 +8,6 @@ function Pricepage(props){
     let [inputAlert, setinputAlert] = useState(false);
     let [inputValue, setinputValue] = useState('')
     let dispatch = useDispatch()
-    let SavedItem = useSelector((state)=>{return state.SavedItem});
     const inputalert = (event)=>{
         setinputValue(event.target.value);
    
@@ -43,10 +42,11 @@ function Pricepage(props){
     // 일종의 스위치로 만들어야됨
     useEffect(()=>{
        isNaN(inputValue)? setinputAlert(true) : setinputAlert(false)
-       console.log(inputAlert)
     }, [inputValue])
     // return clean up 함수 == > 재랜더링이 계속되니깐 기존 코드 정리용 함수
-    
+    useEffect(()=>{
+        localStorage.setItem("watched", JSON.stringify([]));   
+    })
     return(
         <>
         {
@@ -78,7 +78,13 @@ function Pricepage(props){
                         <div className='pricepage-info'>
                             <h2>가격 확인</h2>
                             <button onClick={()=>{
-                                dispatch(addCart({id : 8, name : 'Grey Yghfordan', count : 1}))
+                                dispatch(addCart(a))
+                                let watched = localStorage.getItem('watched')
+                                localStorage.removeItem("watched")
+                                console.log(watched)
+                                let copy = JSON.parse(watched)
+                                copy.push(a.title);
+                                localStorage.setItem("watched2", JSON.stringify(copy))
                             }}>
                                 장바구니 담기
                             </button>

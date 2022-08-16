@@ -15,6 +15,7 @@ import FeaturesPage from './featurespage.js'
 import CartPage from './cart.js';
 import{Routes, Route, Link, Outlet, useNavigate} from 'react-router-dom'
 import axios from 'axios'
+import styled from 'styled-components';
 function App() {
   let[watch, setwatch] = useState(data)
   let[cnt, setcnt] = useState(0);
@@ -39,9 +40,9 @@ function App() {
       <Route path='/pricing' element={<><ColorSchemesExample></ColorSchemesExample><Pricepage watch={watch} ></Pricepage></>}> 
       {/* 라우트 안에 세부 경로를 만들수 있음 이때 /쓰지 않음 자동으로 생성   */}
       {/* 이떄 부모페이지를 컴포넌트화 시킨다음 아울렛을 써줘야함 */}
-        <Route path="1" element={<>150000000(vat별도).</>}></Route>
-        <Route path="2" element={<>80000000(vat별도).</>}></Route>
-        <Route path="3" element={<>100000000(vat별도).</>}></Route>
+        <Route path="0" element={<>150000000(vat별도).</>}></Route>
+        <Route path="1" element={<>80000000(vat별도).</>}></Route>
+        <Route path="2" element={<>100000000(vat별도).</>}></Route>
       </Route>
       <Route path='*' element={<>없는 페이지 입니다.</>}></Route> 
     </Routes> 
@@ -98,14 +99,21 @@ function ChangeTab(props) {
 }
 
 function ColorSchemesExample() {
+  const StyledLink = styled(Link)`
+                  color: Azure;
+                  text-decoration: none;
+                  padding : 10px;
+  `;
   return (
     <>
       <Navbar bg="dark" variant="dark">
         <Container>
           <Navbar.Brand href="/">WatchLounge</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="/features" >Features</Nav.Link>
-            <Nav.Link href="/pricing">Pricing</Nav.Link>
+            {/* 근본적으로 여기서 새로고침이 된다 야발 */}
+            <StyledLink to="/features" >Features</StyledLink>
+            <StyledLink to="/pricing">Pricing</StyledLink>
+            <StyledLink to="/cart">Cart</StyledLink>
           </Nav>
         </Container>
       </Navbar>
@@ -119,13 +127,6 @@ function ResponsiveAutoExample(props) {
       <Row>
         {/* map에선 ()만 쓰임 */}
         {/* 알림창 */}
-        {
-          props.Swit?
-          <div>
-            <h1> 로딩중입니다. </h1>
-          </div>:
-          null
-        }
         {
           props.watch.map((a)=>(
           <Col sm>
