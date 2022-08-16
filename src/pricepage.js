@@ -1,13 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux'
 import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { addCart } from "./store";
 import './pricepage.css'
 function Pricepage(props){
     let [alert, setalert] = useState(true);
     let [inputAlert, setinputAlert] = useState(false);
     let [inputValue, setinputValue] = useState('')
+    let dispatch = useDispatch()
+    let SavedItem = useSelector((state)=>{return state.SavedItem});
     const inputalert = (event)=>{
         setinputValue(event.target.value);
-        console.log(event.target.value)
+   
     }
     const nav = useNavigate();
     const changeData = () => {
@@ -62,7 +66,7 @@ function Pricepage(props){
             </header> : null
          }
          <input onChange ={inputalert}></input>
-            <button onClick={changeData}>가격별 정렬</button>
+            {/* <button onClick={changeData}>가격별 정렬</button> */}
             {
                     props.watch.map((a,i)=>(
                     <div className='pricepage-card'>
@@ -73,6 +77,11 @@ function Pricepage(props){
                         </div>
                         <div className='pricepage-info'>
                             <h2>가격 확인</h2>
+                            <button onClick={()=>{
+                                dispatch(addCart({id : 8, name : 'Grey Yghfordan', count : 1}))
+                            }}>
+                                장바구니 담기
+                            </button>
                             <Outlet></Outlet>
                         </div>        
                     </div>

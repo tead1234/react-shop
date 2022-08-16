@@ -39,7 +39,9 @@ function App() {
       <Route path='/pricing' element={<><ColorSchemesExample></ColorSchemesExample><Pricepage watch={watch} ></Pricepage></>}> 
       {/* 라우트 안에 세부 경로를 만들수 있음 이때 /쓰지 않음 자동으로 생성   */}
       {/* 이떄 부모페이지를 컴포넌트화 시킨다음 아울렛을 써줘야함 */}
-        <Route path="/pricing/:id" element={<>150000000(vat별도).</>}></Route>
+        <Route path="1" element={<>150000000(vat별도).</>}></Route>
+        <Route path="2" element={<>80000000(vat별도).</>}></Route>
+        <Route path="3" element={<>100000000(vat별도).</>}></Route>
       </Route>
       <Route path='*' element={<>없는 페이지 입니다.</>}></Route> 
     </Routes> 

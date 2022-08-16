@@ -12,17 +12,20 @@ let stock = createSlice({
 let SavedItem = createSlice({
     name : 'SavedItem',
     initialState : [
-        {id : 0, name : 'White and Black', count : 2},
-        {id : 2, name : 'Grey Yordan', count : 1}
+        {id : 3, name : 'White and Black', count : 2},
+        {id : 4, name : 'Grey Yordan', count : 1}
       ], 
     reducers : {changeCount(state , i){
         // object나 리스트 수정할떄 return 안써야 됨
         // 파라미터 추가시 payload추가
          state[i.payload].count += 1
-     } 
+     },
+     addCart(state, n){
+        state.push(n.payload)
+     }
     }
 })
-export let {changeCount} = SavedItem.actions
+export let {changeCount, addCart} = SavedItem.actions
 export default configureStore({
     reducer:{
         user : user.reducer,

@@ -29,7 +29,7 @@ function CartPage() {
                             <td>
                                 {a.count}
                                 <button onClick={()=>{
-                                    dispatch(changeCount(a.count))
+                                    dispatch(changeCount(i))
                                 }}
                                 >+</button>
                             </td>
